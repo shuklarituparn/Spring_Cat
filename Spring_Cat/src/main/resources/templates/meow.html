@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" />
+    <title>
+       Meow | Cat Page
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Rituparn Shukla" />
+    <link href="/css/output.css" rel="stylesheet" />
+
+</head>
+<body class="bg-cover h-screen w-screen" style="background-image: url('/images/bg/bg4.jpg')">
+<div class="flex flex-col bg-gray-100 backdrop-blur-lg rounded-xl bg-opacity-30 h-1/2 w-1/2 mx-auto mt-52">
+    <div class="flex mt-10 text-3xl text-white font-cassa items-center justify-center">
+        <a th:href="@{/cat}" class="mt-20 rounded-full bg-blue-700 px-4 py-4"> Click Me To Increment</a>
+    </div>
+    <div class="flex mt-10 text-3xl text-white font-cassa items-center justify-center">
+        <p class="mt-20 rounded-full bg-blue-700 px-4 py-4" th:text="${'Meow count: ' + Counter}"></p>
+    </div>
+
+</div>
+
+</body>
+</html>

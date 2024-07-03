@@ -6,20 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
+import org.springframework.core.io.support.ResourceRegion;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.io.IOException;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicInteger;
 
-@RestController
-@RequestMapping("/cat")
+@Controller
+@RequestMapping({"/cat", "/cat/"})
 public class CatController {
+
     private  final ResourcePatternResolver resourcePatternResolver;
     private final Random random;
-
+    private final AtomicInteger meowCounter= new AtomicInteger();
     MeterRegistry meterRegistry;
 
     Counter meowcounter;
@@ -36,15 +42,26 @@ public class CatController {
         this.catPicCounter=Counter.builder("cat_pics").description("Metric to show the cat pics").register(meterRegistry);
 
     }
-
     @GetMapping
-    public String meow(){
+    public String meow(Model model) {
+        int currentCount= meowCounter.incrementAndGet();
+        model.addAttribute("catspeak", "meow");
+        model.addAttribute("Counter", currentCount);
         meowcounter.increment();
-        return "Meow!";
-
+        return "meow";
+    }
+    @GetMapping({"/show", "/show/"})
+    public String catImage(Model model) throws IOException {
+        String Imageurl;
+        Resource [] resources=resourcePatternResolver.getResources(imageDirectory);
+        Resource randomImage=resources[random.nextInt(resources.length)];
+        Imageurl= String.valueOf(randomImage.getFilename());
+//        System.out.println(Imageurl);
+        model.addAttribute("Imageurl",Imageurl);
+        return "catImage";
     }
 
-    @GetMapping("/show/")
+    @GetMapping("images/show/")
     public ResponseEntity<Resource> show_image(){
         try{
 
