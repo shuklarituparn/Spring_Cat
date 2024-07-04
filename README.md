@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">
+<h1 align=" center">
  🐱  Spring Cat 🐱 
 </h1> 
 
@@ -7,7 +7,7 @@
 
 ---
 
-<h2 style="text-align: center;">
+<h2 align=" center">
  Технологический стек
 </h2> 
 
