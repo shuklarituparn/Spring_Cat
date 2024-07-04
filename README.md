@@ -1,4 +1,4 @@
-<h1 align=cente">
+<h1 align=center>
  🐱  Spring Cat 🐱 
 </h1> 
 
